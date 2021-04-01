@@ -70,35 +70,3 @@ def msm():
 
 
 
-
-
-########################################################################
-
-#def bot_send_text(bot_message):
-#    
-#    bot_token = '1730935138:AAEbT6lNRTODbIw68xNzK6UA9bKCRvq4cmA'
-#    bot_chatID = '76112722'
-#    send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
-#
-#    response = requests.get(send_text)
-#
-#    return response
-#
-##test_bot = bot_send_text('¡Hola, Telegram!')
-
-
-
-
-
-
-
-#if __name__ == '__main__':
-#
-#    dolartoday()
-#    
-#    schedule.every().day.at("01:19").do(report)
-#    schedule.every().day.at("01:19").do(report_dolar)
-#
-#    while True:
-#
-#        schedule.run_pending()
