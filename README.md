@@ -5,7 +5,7 @@ Un pequeño Bot para telegram creado con Python, llamado opimusbot V.1.0
 
 #pip install -r requirements.txt
 
-#python mainbot
+#python mainbot.py
 
 
 <h1> Comandos </h1>
