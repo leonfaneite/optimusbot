@@ -5,7 +5,6 @@ certifi==2020.12.5
 chardet==4.0.0
 collection==0.1.6
 idna==2.10
-pyTelegramBotAPI==3.7.7
 pytz==2021.1
 requests==2.25.1
 schedule==1.0.0
@@ -15,4 +14,4 @@ telegram==0.0.1
 tornado==6.1
 tzlocal==2.1
 urllib3==1.26.4
-
+python-telegram-bot==12.4.2

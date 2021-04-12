@@ -1,5 +1,5 @@
 import os
-from telegram import Update
+from telegram import *
 import qrcode
 import logging
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update,ReplyKeyboardMarkup,ReplyKeyboardRemove
@@ -20,7 +20,9 @@ from funtions import *
 
 
 if __name__ == '__main__':
-    updater = Updater('TOKEN', use_context=True)
+
+    
+    updater = Updater(token=os.environ['TOKEN'], use_context=True)
    
        
 ####################manejador del QR

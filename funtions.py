@@ -1,5 +1,5 @@
 import os
-from telegram import Update
+from telegram import *
 import qrcode
 import logging
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update,ReplyKeyboardMarkup,ReplyKeyboardRemove
