@@ -10,5 +10,4 @@ services:
     volumes:
       - ./opimusbot:/app
     environment:
-      - TOKEN=1730935138:AAEbT6lNRTODbIw68xNzK6UA9bKCRvq4cmA
-  
+      - TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
