@@ -19,7 +19,7 @@ Entre las operaciones que puede realizar estan:
 
 -Creacion de codigo QR basado en Texto incertado
 
--Calculo de Costo de envio de Pesos a  Bs y equivalencia en dolares segun DolarToday 
+-Calculo de Costo de envio de Pesos y Soles a  Bs y equivalencia en dolares segun DolarToday y Monitor Dolar Vzla
 
 
 

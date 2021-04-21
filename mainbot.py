@@ -23,7 +23,7 @@ if __name__ == '__main__':
     mon_dolar=0
 
     
-    updater = Updater('TOKEN', use_context=True)
+    updater = Updater(os.environ['TOKEN'], use_context=True)
    
        
 ####################manejador del QR
@@ -42,10 +42,12 @@ if __name__ == '__main__':
                         MessageHandler(Filters.regex('^Calcular Giro a VEN$'), question),
                         MessageHandler(Filters.regex('^Salir$'), closed)
                         ],
-            INPUT_M:[ MessageHandler(Filters.regex('^(pesos|dolares)$'), tipo_envio),
-                      MessageHandler(Filters.regex('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'), pedir_tasa),            
+            INPUT_M:[ MessageHandler(Filters.regex('^(pesos|soles)$'), tipo_envio),
+                      MessageHandler(Filters.regex('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'), pedir_tasa),
+                       MessageHandler(Filters.regex('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'), pedir_tasa_soles),            
                      ],
-            INPUT_N:[ MessageHandler(Filters.regex('^\d+$'), total_enviar)],
+            INPUT_N:[ MessageHandler(Filters.regex('^\d+$'), total_enviar),
+                      MessageHandler(Filters.regex('^\d+$'), total_enviar_soles)  ],
 
             INPUT_TEXT:[MessageHandler(Filters.text, input_string)]
         },

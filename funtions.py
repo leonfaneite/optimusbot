@@ -112,12 +112,6 @@ def monitor(update,context):
     update.message.reply_text(f'El dolar  Monitor Dolar esta en:  {"{:,.2f}".format(dolar_mon)}',reply_markup = i_markup )
     
 
-##############################################################
-#BOTONES QUE ENVIAN A URLS
-#
-
-#
-
 
 ##############################################################################
 #FUNCIONES PARA GENERAR QR
@@ -156,11 +150,7 @@ def send_qr(filename,chat):
 
 #####################################################################
 #CAMBIOS DE MONEDA
-############################################################################3
 
-  
-
-####################################################################################
 
 def question(update,context):
     update.message.reply_text("Que deseas enviar?",reply_markup=markup,)
@@ -172,9 +162,51 @@ def tipo_envio(update,context):
     text = update.message.text
     if text == "pesos":
         cant_peso(update,context)
-    elif text =="dolares":
-        print(text)
+    elif text =="soles":
+        cant_soles(update,context)
+
+
+#########################################################################
+########Cambio en SOLES
+def cant_soles(update,context):
+
+    update.message.reply_text("a que tasa deseas enviar?")
     
+    return INPUT_M
+
+
+def pedir_tasa_soles(update,context):
+    
+    tasa = update.message.text
+    list_valores.append(tasa)
+    update.message.reply_text("que monto vas a enviar?")   
+    return INPUT_N
+    
+
+def total_enviar_soles(update,context):
+
+    for i in list_valores:
+
+        m = float(i)
+    
+    monto_env = float(update.message.text)
+    
+    total = monto_env * m
+    total_real = float("{0:.2f}".format(total))
+
+    dt = total_real / dolartoday_total()
+
+    
+    
+    do_moni = total_real / monitor_dolar()
+
+    print(do_moni)
+
+
+    update.message.reply_text(f'El total a enviar es : Bs {"{:,.2f}".format(total_real)} y podras comprar $ {"{0:.2f}".format(dt)} al cambio de dolartoday y $ {"{0:.2f}".format(do_moni)} al Cambio de MonitorDolarVZLA ' ,reply_markup = i_markup )
+    return INPUT_L
+
+##############################################################
 
 def cant_peso(update,context):
 
