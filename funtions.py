@@ -9,6 +9,7 @@ from collections import defaultdict
 import json
 import requests
 from bs4 import BeautifulSoup
+import re
 
 
 INPUT_TEXT, INPUT_L , INPUT_M , INPUT_N = range(4)
@@ -18,13 +19,13 @@ list_valores=[]
 
 reply_keyboard = [
     ['pesos'],
-    ['dolares']
+    ['soles']
 ]
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
 Initial_keyboard = [
     ['Genera un Codigo QR'],
-    ['Precio del BTC'],
+    ['Precio del BTC'],['Dolar MonitorVZLA'],
     ['Precio del DolarToday'],
     ['Calcular Giro a VEN'],
     ['Salir']
@@ -48,7 +49,7 @@ def closed(update,context):
 #####,######################################################################
 #CODIGO DE DOLAR TODAY Y BITCOIN
 
-def dolartoday(update, context):
+def dolartoday_total():
 
     results = defaultdict(list)
     r = requests.get("https://s3.amazonaws.com/dolartoday/data.json")
@@ -65,7 +66,12 @@ def dolartoday(update, context):
 
     g = final.get('dolartoday','no existe')
 
-    update.message.reply_text(f'El dolartoday es:  {g[0]}' ,reply_markup = i_markup )
+    return g[0]
+
+    #print({:,.2f}'.format(g))
+def dolartoday(update,context):
+    total = dolartoday_total()
+    update.message.reply_text(f'El dolartoday esta en :Bs {"{:,.2f}".format(total)}' ,reply_markup = i_markup )
 
 
 
@@ -78,34 +84,39 @@ def btc_scraping(update,context):
     format_result = result.text
  
     update.message.reply_text(f'El Bitcoin esta en:  {format_result}',reply_markup = i_markup )
+
+
+def monitor_dolar():
+    url = requests.get('https://monitordolarvzla.com/category/promedio-del-dolar/')
+    soup = BeautifulSoup(url.content, 'html.parser')
+
+    result = soup.find('div', {'class': 'entry-content'})
+    rows  = result.find_all('p', limit = 1, recursive = False)
+    format_result = rows
+    format_result1 = str(format_result)
+    matchObj = re.search( r'([+-]?[0-9]+([.][0-9]+([.][0-9]+([,][0-9]+))))', format_result1, re.M|re.I)
+    if matchObj:
+        f = matchObj.group(1)
+        raw = f.split(".")
+        num = "".join(raw)
+        total = float(num.replace(',', '.'))
+         
+        
+    else:
+        print("No match!!")
+
+    return total
+
+def monitor(update,context):
+    dolar_mon = monitor_dolar()
+    update.message.reply_text(f'El dolar  Monitor Dolar esta en:  {"{:,.2f}".format(dolar_mon)}',reply_markup = i_markup )
     
 
 ##############################################################
 #BOTONES QUE ENVIAN A URLS
+#
 
-def probe(update,context):
-    button= InlineKeyboardButton(
-        text="Facebook",
-        url="www.facebook.com"
-
-    )
-
-    button1= InlineKeyboardButton(
-        text="Twitter",
-        url="www.twitter.com"
-
-    )
-
-    update.message.reply_text(
-        text="A donde quieres ir?",
-        reply_markup=InlineKeyboardMarkup([
-            [button],
-            [button1]
-
-        ])
-
-    )
-
+#
 
 
 ##############################################################################
@@ -145,27 +156,11 @@ def send_qr(filename,chat):
 
 #####################################################################
 #CAMBIOS DE MONEDA
+############################################################################3
 
+  
 
-def dolartoday2():
-    results = defaultdict(list)
-    r = requests.get("https://s3.amazonaws.com/dolartoday/data.json")
-    req = r.json()
-    if r.status_code == 200:
-         for d in req.values():
-             for k,v in d.items(): 
-                 a = results[k].append(v)
-    
-    k = list(results.keys())
-    v = list(results.values())
-    
-    final = dict(results)
-
-    g = final.get('dolartoday','no existe')
-
-    return g[0]
-
-
+####################################################################################
 
 def question(update,context):
     update.message.reply_text("Que deseas enviar?",reply_markup=markup,)
@@ -207,8 +202,55 @@ def total_enviar(update,context):
     total = monto_env / m
     total_real = float("{0:.2f}".format(total))
 
-    dt = total_real / dolartoday2()
+    dt = total_real / dolartoday_total()
+
+    
+    
+    do_moni = total_real / monitor_dolar()
+
+    print(do_moni)
 
 
-    update.message.reply_text(f'El total a enviar es : Bs {total_real} y podras comprar {"{0:.2f}".format(dt)} al cambio de dolartoday',reply_markup = i_markup )
+    update.message.reply_text(f'El total a enviar es : Bs {"{:,.2f}".format(total_real)} y podras comprar $ {"{0:.2f}".format(dt)} al cambio de dolartoday y $ {"{0:.2f}".format(do_moni)} al Cambio de MonitorDolarVZLA ' ,reply_markup = i_markup )
     return INPUT_L
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #def probe(update,context):
+#    button= InlineKeyboardButton(
+#        text="Facebook",
+#        url="www.facebook.com"
+#
+#    )
+#
+#    button1= InlineKeyboardButton(
+#        text="Twitter",
+#        url="www.twitter.com"
+#
+#    )
+#
+#    update.message.reply_text(
+#        text="A donde quieres ir?",
+#        reply_markup=InlineKeyboardMarkup([
+#            [button],
+#            [button1]
+#
+#        ])
+#
+#    )

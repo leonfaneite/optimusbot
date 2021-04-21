@@ -20,9 +20,10 @@ from funtions import *
 
 
 if __name__ == '__main__':
+    mon_dolar=0
 
     
-    updater = Updater(token=os.environ['TOKEN'], use_context=True)
+    updater = Updater('TOKEN', use_context=True)
    
        
 ####################manejador del QR
@@ -36,6 +37,7 @@ if __name__ == '__main__':
 
              INPUT_L :[ MessageHandler(Filters.regex('^Precio del DolarToday$'), dolartoday),
                         MessageHandler(Filters.regex('^Precio del BTC$'), btc_scraping),
+                        MessageHandler(Filters.regex('^Dolar MonitorVZLA$'), monitor),
                         MessageHandler(Filters.regex('^Genera un Codigo QR$'), qr_coman),
                         MessageHandler(Filters.regex('^Calcular Giro a VEN$'), question),
                         MessageHandler(Filters.regex('^Salir$'), closed)
