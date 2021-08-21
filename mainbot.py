@@ -1,3 +1,4 @@
+ 
 import os
 from telegram import *
 import qrcode
@@ -10,6 +11,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 from funtions import *
+
 
 
 
@@ -42,14 +44,19 @@ if __name__ == '__main__':
                         MessageHandler(Filters.regex('^Calcular Giro a VEN$'), question),
                         MessageHandler(Filters.regex('^Salir$'), closed)
                         ],
-            INPUT_M:[ MessageHandler(Filters.regex('^(pesos|soles)$'), tipo_envio),
-                      MessageHandler(Filters.regex('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'), pedir_tasa),
-                       MessageHandler(Filters.regex('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'), pedir_tasa_soles),            
-                     ],
-            INPUT_N:[ MessageHandler(Filters.regex('^\d+$'), total_enviar),
-                      MessageHandler(Filters.regex('^\d+$'), total_enviar_soles)  ],
 
-            INPUT_TEXT:[MessageHandler(Filters.text, input_string)]
+            INPUT_A:[ MessageHandler(Filters.regex('^(peso|soles)$'), tipo_envio)],
+
+            INPUT_E:[ MessageHandler(Filters.regex('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'), pedir_tasa)],
+            
+            INPUT_B:[MessageHandler(Filters.regex('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'), pedir_tasa_soles)],
+            #MessageHandler(Filters.regex('^(soles)$'), tipo_envio),
+
+
+            INPUT_C:[ MessageHandler(Filters.regex('^\d+$'), total_enviar)],                       
+            INPUT_D:[ MessageHandler(Filters.regex('^\d+$'), total_enviar_soles)],
+
+            INPUT_TEXT:[MessageHandler(Filters.text, input_string),]
         },
         
         fallbacks=[MessageHandler(Filters.text, inicio)]
