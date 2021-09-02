@@ -18,12 +18,8 @@ list_valores=[]
 
 
 reply_keyboard = [
-<<<<<<< HEAD
     ['peso'],
     ['soles']
-=======
-    ['pesos'],
->>>>>>> e42a91e (version 2.0 sin conversos de Soles)
 ]
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 

@@ -44,7 +44,6 @@ if __name__ == '__main__':
                         MessageHandler(Filters.regex('^Calcular Giro a VEN$'), question),
                         MessageHandler(Filters.regex('^Salir$'), closed)
                         ],
-<<<<<<< HEAD
 
             INPUT_A:[ MessageHandler(Filters.regex('^(peso|soles)$'), tipo_envio)],
 
@@ -58,16 +57,6 @@ if __name__ == '__main__':
             INPUT_D:[ MessageHandler(Filters.regex('^\d+$'), total_enviar_soles)],
 
             INPUT_TEXT:[MessageHandler(Filters.text, input_string),]
-=======
-            INPUT_M:[ MessageHandler(Filters.regex('^(pesos)$'), tipo_envio),
-                      MessageHandler(Filters.regex('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'), pedir_tasa),
-                       #MessageHandler(Filters.regex('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'), pedir_tasa_soles),            
-                     ],
-            INPUT_N:[ MessageHandler(Filters.regex('^\d+$'), total_enviar),
-                      MessageHandler(Filters.regex('^\d+$'), total_enviar_soles)  ],
-
-            INPUT_TEXT:[MessageHandler(Filters.text, input_string)]
->>>>>>> e42a91e (version 2.0 sin conversos de Soles)
         },
         
         fallbacks=[MessageHandler(Filters.text, inicio)]
