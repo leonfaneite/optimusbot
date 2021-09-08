@@ -124,16 +124,22 @@ def qr_coman(update,context):
 def input_string(update,context):
         
     text = update.message.text
-    filename= generate_qr(text)
+    print(text)
+    filename = generate_qr(text)
     chat= update.message.chat
+    
     send_qr(filename,chat)
+    print("funcion invocada")
     update.message.reply_text("que mas deseas hacer?",reply_markup = i_markup)
     return INPUT_L
 
 def generate_qr(txt):
-    filename=txt + ".jpg"
+    print(txt)
+    filename = txt + ".jpg"
     img = qrcode.make(txt)
+    type(img)
     img.save(filename)
+    print("imagen salvada")
     return filename
 
 def send_qr(filename,chat):
