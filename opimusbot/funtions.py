@@ -12,13 +12,13 @@ from bs4 import BeautifulSoup
 import re
 
 
-INPUT_A, INPUT_TEXT, INPUT_L , INPUT_M , INPUT_B , INPUT_C , INPUT_D, INPUT_E = range(8)
+INPUT_TEXT, INPUT_L , INPUT_M , INPUT_N = range(4)
 
 list_valores=[]
 
 
 reply_keyboard = [
-    ['peso'],
+    ['pesos'],
     ['soles']
 ]
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
@@ -154,72 +154,31 @@ def send_qr(filename,chat):
 
 def question(update,context):
     update.message.reply_text("Que deseas enviar?",reply_markup=markup,)
-    
-    return INPUT_A
-  
+    return INPUT_M
 
 
 
 def tipo_envio(update,context):
     text = update.message.text
-    if text == "peso":
-        print("pesos")
+    if text == "pesos":
         cant_peso(update,context)
     elif text =="soles":
-        print("soles")
-        cant_soles(update,context)
+        cant_peso(update,context)
 
-
-#########################################################################
-########Cambio en SOLES
-def cant_soles(update,context):
-    update.message.reply_text("a que tasa en soles deseas enviar?")
-    return INPUT_B
-
-
-def pedir_tasa_soles(update,context):
-    tasa = update.message.text
-    print(tasa)
-    list_valores.append(tasa)
-    update.message.reply_text("que monto en soles vas a enviar?")   
-    return INPUT_D
-    
-
-def total_enviar_soles(update,context):
-
-    for i in list_valores:
-
-        m = float(i)
-
-        print(m)
-    
-    monto_env = float(update.message.text)
-    
-    total = (monto_env * m)
-    total_real = float("{0:.2f}".format(total))
-
-    dt = (total_real / dolartoday_total())   
-    
-    do_moni = total_real / monitor_dolar()
-
-    print(dt)
-
-
-    update.message.reply_text(f'El total a enviar es : Bs {"{:,.2f}".format(total_real)} y podras comprar $ {"{0:.2f}".format(dt)} al cambio de dolartoday y $ {"{0:.2f}".format(do_moni)} al Cambio de MonitorDolarVZLA ' ,reply_markup = i_markup )
-    return INPUT_L
-
-##############################################################
 
 def cant_peso(update,context):
+
     update.message.reply_text("a que tasa deseas enviar?")
-    return INPUT_E
+    
+    return INPUT_M
 
 
 def pedir_tasa(update,context):
+    
     tasa = update.message.text
     list_valores.append(tasa)
     update.message.reply_text("que monto vas a enviar?")   
-    return INPUT_C
+    return INPUT_N
     
 
 def total_enviar(update,context):
@@ -230,17 +189,61 @@ def total_enviar(update,context):
     
     monto_env = float(update.message.text)
     
-    total = monto_env / m
-    total_real = float("{0:.2f}".format(total))
-
-    dt = total_real / dolartoday_total()
-
-    
-    
-    do_moni = total_real / monitor_dolar()
-
-    print(do_moni)
+    if m <= 1:
+        total = monto_env / m
+        total_real = float("{0:.2f}".format(total))
+        dt = total_real / dolartoday_total()
+        do_moni = total_real / monitor_dolar()
+        print(do_moni)
+    else:
+        total = monto_env * m
+        total_real = float("{0:.2f}".format(total))
+        dt = total_real / dolartoday_total()
+        do_moni = total_real / monitor_dolar()
+        print(do_moni)
+        
 
 
     update.message.reply_text(f'El total a enviar es : Bs {"{:,.2f}".format(total_real)} y podras comprar $ {"{0:.2f}".format(dt)} al cambio de dolartoday y $ {"{0:.2f}".format(do_moni)} al Cambio de MonitorDolarVZLA ' ,reply_markup = i_markup )
     return INPUT_L
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #def probe(update,context):
+#    button= InlineKeyboardButton(
+#        text="Facebook",
+#        url="www.facebook.com"
+#
+#    )
+#
+#    button1= InlineKeyboardButton(
+#        text="Twitter",
+#        url="www.twitter.com"
+#
+#    )
+#
+#    update.message.reply_text(
+#        text="A donde quieres ir?",
+#        reply_markup=InlineKeyboardMarkup([
+#            [button],
+#            [button1]
+#
+#        ])
+#
+#    )
