@@ -1,6 +1,6 @@
 # optimusbot
 
-Un pequeño Bot para telegram creado con Python, llamado opimusbot V.1.0
+Un pequeño Bot para telegram creado con Python, llamado opimusbot V.1.1
 Para Ejecutarlo
 
 #pip install -r requirements.txt
@@ -18,4 +18,4 @@ Entre las operaciones que puede realizar estan:
 
 -Creacion de codigo QR basado en Texto incertado
 
--Calculo de Costo de envio de Pesos y Soles a Bs y equivalencia en dolares segun DolarToday y Monitor Dolar Vzla
+-Calculo de Costo de envio de Pesos y Soles a Bs y equivalencia en dolares segun DolarToday 
