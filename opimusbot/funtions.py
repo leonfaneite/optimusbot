@@ -25,7 +25,7 @@ markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
 Initial_keyboard = [
     ['Genera un Codigo QR'],
-    ['Precio del BTC'],['Dolar MonitorVZLA'],
+    ['Precio del BTC'],
     ['Precio del DolarToday'],
     ['Calcular Giro a VEN'],
     ['Salir']
@@ -86,31 +86,31 @@ def btc_scraping(update,context):
     update.message.reply_text(f'El Bitcoin esta en:  {format_result}',reply_markup = i_markup )
 
 
-def monitor_dolar():
-    url = requests.get('https://monitordolarvzla.com/category/promedio-del-dolar/')
-    soup = BeautifulSoup(url.content, 'html.parser')
-
-    result = soup.find('div', {'class': 'entry-content'})
-    rows  = result.find_all('p', limit = 1, recursive = False)
-    format_result = rows
-    format_result1 = str(format_result)
-    matchObj = re.search( r'([+-]?[0-9]+([.][0-9]+([.][0-9]+([,][0-9]+))))', format_result1, re.M|re.I)
-    if matchObj:
-        f = matchObj.group(1)
-        raw = f.split(".")
-        num = "".join(raw)
-        total = float(num.replace(',', '.'))
-         
-        
-    else:
-        print("No match!!")
-
-    return total
-
-def monitor(update,context):
-    dolar_mon = monitor_dolar()
-    update.message.reply_text(f'El dolar  Monitor Dolar esta en:  {"{:,.2f}".format(dolar_mon)}',reply_markup = i_markup )
-    
+#def monitor_dolar():
+#    url = requests.get('https://monitordolarvzla.com/category/promedio-del-dolar/')
+#    soup = BeautifulSoup(url.content, 'html.parser')
+#
+#    result = soup.find('div', {'class': 'entry-content'})
+#    rows  = result.find_all('p', limit = 1, recursive = False)
+#    format_result = rows
+#    format_result1 = str(format_result)
+#    matchObj = re.search( r'([+-]?[0-9]+([.][0-9]+([.][0-9]+([,][0-9]+))))', format_result1, re.M|re.I)
+#    if matchObj:
+#        f = matchObj.group(1)
+#        raw = f.split(".")
+#        num = "".join(raw)
+#        total = float(num.replace(',', '.'))
+#         
+#        
+#    else:
+#        print("No match!!")
+#
+#    return total
+#
+#def monitor(update,context):
+#    dolar_mon = monitor_dolar()
+#    update.message.reply_text(f'El dolar  Monitor Dolar esta en:  {"{:,.2f}".format(dolar_mon)}',reply_markup = i_markup )
+#    
 
 
 ##############################################################################
@@ -193,24 +193,18 @@ def total_enviar(update,context):
 
         m = float(i)
     
-    monto_env = float(update.message.text)
+        monto_env = float(update.message.text)
     
-    if m <= 1:
         total = monto_env / m
         total_real = float("{0:.2f}".format(total))
         dt = total_real / dolartoday_total()
-        do_moni = total_real / monitor_dolar()
-        print(do_moni)
-    else:
-        total = monto_env * m
-        total_real = float("{0:.2f}".format(total))
-        dt = total_real / dolartoday_total()
-        do_moni = total_real / monitor_dolar()
-        print(do_moni)
+    
+        print(dt)
+  
         
 
 
-    update.message.reply_text(f'El total a enviar es : Bs {"{:,.2f}".format(total_real)} y podras comprar $ {"{0:.2f}".format(dt)} al cambio de dolartoday y $ {"{0:.2f}".format(do_moni)} al Cambio de MonitorDolarVZLA ' ,reply_markup = i_markup )
+    update.message.reply_text(f'El total a enviar es : Bs {"{:,.2f}".format(total_real)} y podras comprar $ {"{0:.2f}".format(dt)} al cambio de dolartoday' ,reply_markup = i_markup )
     return INPUT_L
 
 
